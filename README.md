@@ -4,20 +4,18 @@ Expose your local server to the internet via a single command like ngrok, using 
 
 ## Usage
 
+```
+./frp-tunnel.sh <subdomain> <local_port>
+```
+
 **Linux/Mac:**
 ```bash
-./frp-tunnel.sh dev1 3000
+./frp-tunnel.sh <subdomain> <local_port>
 ```
 
 **Windows:**
 ```cmd
-frp-tunnel.bat dev1 3000
+frp-tunnel.bat <subdomain> <local_port>
 ```
 
-It will expose `http://dev1.tunnel.algomative.com` to your local port `3000`.
-
-## Prerequisite
-
-- Your server must run an `frps` instance with subdomain support.
-- Your DNS must point `*.tunnel.algomative.com` to your VPS IP.
-- You must configure NGINX on the server to forward HTTP requests to the FRP HTTP port.
+It will expose `http://<subdomain>.tunnel.algomative.com` to your local port `<local_port>`.
