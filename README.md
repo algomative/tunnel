@@ -4,10 +4,6 @@ Expose your local server to the internet via a single command like ngrok, using 
 
 ## Usage
 
-```
-./frp-tunnel.sh <subdomain> <local_port>
-```
-
 **Linux/Mac:**
 ```bash
 ./frp-tunnel.sh <subdomain> <local_port>
