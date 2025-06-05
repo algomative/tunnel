@@ -1,25 +1,44 @@
 @echo off
 REM Usage: frp-tunnel.bat dev1 3000
+
 set SUB=%1
 set PORT=%2
-set SERVER=YOUR_VPS_IP
-set TOKEN=YOUR_SECRET_TOKEN
+set SERVER=157.230.255.83
+set TOKEN=77da14c0381ee5ab3b17de3fb4d064bad6f9eb7a04e1bae55ff0b9719fbc8217
 set DIR=.frp-bin
+
+if "%SUB%"=="" (
+    echo [ERROR] Subdomain argument is missing.
+    echo Usage: frp-tunnel.bat dev1 3000
+    exit /b 1
+)
+
+if "%PORT%"=="" (
+    echo [ERROR] Port argument is missing.
+    echo Usage: frp-tunnel.bat dev1 3000
+    exit /b 1
+)
 
 if not exist "%DIR%" mkdir "%DIR%"
 cd "%DIR%"
+
 if not exist frpc.exe (
-  echo Downloading frpc.exe (Windows x64)...
-  bitsadmin /transfer tempDownload https://github.com/fatedier/frp/releases/download/v0.62.1/frp_0.62.1_windows_amd64.zip %CD%\frp.zip
-  tar -xf frp.zip --wildcards --strip-components=1 frp_0.62.1_windows_amd64/frpc.exe
-  del frp.zip
+    echo [ERROR] frpc.exe is missing in %CD%
+    echo Please download frpc manually and place it in this folder.
+    exit /b 1
 )
-echo [common]> frpc.ini
-echo server_addr = %SERVER%>> frpc.ini
-echo server_port = 7000>> frpc.ini
-echo token = %TOKEN%>> frpc.ini
-echo [%SUB%]>> frpc.ini
-echo type = http>> frpc.ini
-echo local_port = %PORT%>> frpc.ini
-echo subdomain = %SUB%>> frpc.ini
+
+(
+echo [common]
+echo server_addr = %SERVER%
+echo server_port = 7000
+echo token = %TOKEN%
+
+echo [%SUB%]
+echo type = http
+echo local_port = %PORT%
+echo subdomain = %SUB%
+) > frpc.ini
+
+echo Starting tunnel for %SUB%.tunnel.algomative.com to localhost:%PORT%
 frpc.exe -c frpc.ini

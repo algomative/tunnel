@@ -1,7 +1,7 @@
 #!/bin/bash
 # Usage: ./frp-tunnel.sh dev1 3000
 SUB=$1; PORT=$2
-SERVER=YOUR_VPS_IP; TOKEN=YOUR_SECRET_TOKEN
+SERVER=157.230.255.83; TOKEN=77da14c0381ee5ab3b17de3fb4d064bad6f9eb7a04e1bae55ff0b9719fbc8217
 BIN=frpc
 DIR=".frp-bin"
 
